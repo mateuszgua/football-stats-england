@@ -72,7 +72,7 @@ print(response)
 
 def get_bets():
     bet_table = all_data[all_data.columns[23:68]]
-    cleared_nan = bet_table.fillna('Null')
+    cleared_nan = bet_table.fillna('9999')
 
     filename = "bet_table.csv"
     files_present = glob.glob(filename)
@@ -92,7 +92,7 @@ print(response)
 def get_games():
     games_table = all_data[all_data.columns[1:23]]
     games_drop_referee = games_table.drop(['Referee'], axis=1)
-    cleared_nan = games_drop_referee.fillna('Null')
+    cleared_nan = games_drop_referee.fillna('9999')
 
     club_names = pd.read_csv('club_names.csv')
 
@@ -103,7 +103,8 @@ def get_games():
     cleared_nan['Date'] = cleared_nan['Date'].replace(['Null'], '01/01/51')
     cleared_nan['Date'] = pd.to_datetime(
         cleared_nan['Date'], errors='coerce', format='%d/%m/%y').dt.strftime('%Y-%m-%d')
-    cleared_nan = cleared_nan.fillna('Null')
+    cleared_nan = cleared_nan.fillna(
+        {'Date': '1900-01-01', 'HomeTeam': 9999, 'AwayTeam': 9999})
     print(cleared_nan)
 
     filename = "games_table.csv"
