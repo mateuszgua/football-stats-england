@@ -17,9 +17,6 @@ class MyDatabase:
         if self.is_connection_valid():
             return self.connection
         self.close_connection()
-        # if self.connection.is_connected():
-        #     return self.connection
-        # self.close_connection()
 
         try:
             self.connection = msql.connect(host=self.host,

@@ -33,31 +33,3 @@ class DatabaseManager:
                 + "BbAvS2_5 FLOAT, BbAH FLOAT, BbAHh FLOAT, BbMxAHH FLOAT, BbAvAHH FLOAT, BbMxAHA FLOAT, BbAvAHA FLOAT)")
         finally:
             print("Tables created successfully.")
-
-        # sql = """INSERT INTO referee VALUES (%s, %s)"""
-        # referee_data = referee_data.drop(columns=['Id'])
-        # referee_list = referee_data.to_records().tolist()
-        # cursor = conn.cursor()
-        # cursor.executemany(sql, referee_list)
-        # conn.commit()
-
-        # sql = """INSERT INTO teams VALUES (%s, %s)"""
-        # club_data = club_data.drop(columns=['Id'])
-        # club_list = club_data.to_records().tolist()
-        # cursor = conn.cursor()
-        # cursor.executemany(sql, club_list)
-        # conn.commit()
-
-        # sql = """INSERT INTO games VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
-        # games_data = games_data.drop(columns=['Id'])
-        # games_list = games_data.to_records().tolist()
-        # cursor = conn.cursor()
-        # cursor.executemany(sql, games_list)
-        # conn.commit()
-
-        # sql = """INSERT INTO football_eng.bets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
-        # bet_data = bet_data.drop(columns=['Id'])
-        # bet_list = bet_data.to_records().tolist()
-        # cursor = conn.cursor()
-        # cursor.executemany(sql, bet_list)
-        # conn.commit()
