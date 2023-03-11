@@ -1,3 +1,7 @@
+import pandas as pd
+
+import config
+
 from my_database import MyDatabase
 
 
@@ -6,27 +10,44 @@ class DatabaseFillTables:
     def __init__(self) -> None:
         self.my_db = MyDatabase()
 
-# TODO Dodać sprawdzenie czy dane istnieja w bazie, jezeli nie to wykonać ponizsze
+    def get_csv_files(self):
 
-    def get_all_referee(self):
+        try:
+            self.games_data = pd.read_csv('games_table.csv')
+            self.referee_data = pd.read_csv('referee_names.csv')
+            self.bet_data = pd.read_csv('bet_table.csv')
+            self.club_data = pd.read_csv('club_names.csv')
+        except:
+            print("Error, file or directory not exist!")
+
+    def fill_referees(self):
         cursor = self.my_db.get_cursor()
-
-        sql = """INSERT INTO referee VALUES (%s, %s)"""
-        referee_data = referee_data.drop(columns=['Id'])
-        referee_list = referee_data.to_records().tolist()
+        self.get_csv_files()
+        sql = f"""INSERT INTO {config.Config.DB_NAME}.referee VALUES (%s, %s)"""
+        self.referee_data = self.referee_data.drop(columns=['Id'])
+        referee_list = self.referee_data.to_records().tolist()
         cursor.executemany(sql, referee_list)
 
-        sql = """INSERT INTO teams VALUES (%s, %s)"""
-        club_data = club_data.drop(columns=['Id'])
-        club_list = club_data.to_records().tolist()
+    def fill_teams(self):
+        cursor = self.my_db.get_cursor()
+        self.get_csv_files()
+        sql = f"""INSERT INTO {config.Config.DB_NAME}.teams VALUES (%s, %s)"""
+        self.club_data = self.club_data.drop(columns=['Id'])
+        club_list = self.club_data.to_records().tolist()
         cursor.executemany(sql, club_list)
 
-        sql = """INSERT INTO games VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
-        games_data = games_data.drop(columns=['Id'])
-        games_list = games_data.to_records().tolist()
+    def fill_games(self):
+        cursor = self.my_db.get_cursor()
+        self.get_csv_files()
+        sql = f"""INSERT INTO {config.Config.DB_NAME}.games VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+        self.games_data = self.games_data.drop(columns=['Id'])
+        games_list = self.games_data.to_records().tolist()
         cursor.executemany(sql, games_list)
 
-        sql = """INSERT INTO football_eng.bets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
-        bet_data = bet_data.drop(columns=['Id'])
-        bet_list = bet_data.to_records().tolist()
+    def fill_bets(self):
+        cursor = self.my_db.get_cursor()
+        self.get_csv_files()
+        sql = f"""INSERT INTO {config.Config.DB_NAME}.bets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+        self.bet_data = self.bet_data.drop(columns=['Id'])
+        bet_list = self.bet_data.to_records().tolist()
         cursor.executemany(sql, bet_list)

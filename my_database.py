@@ -42,10 +42,3 @@ class MyDatabase:
 
     def get_cursor(self):
         return self.get_connection().cursor()
-    # try:
-    #     conn
-
-    #     if conn.is_connected():
-    #         cursor = conn.cursor()
-    #         cursor.execute(f"CREATE DATABASE {configuration.DB_NAME}")
-    #         print("Database is created")
