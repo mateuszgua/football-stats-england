@@ -10,7 +10,7 @@ app.config.from_object('flask_settings.Config')
 
 @app.route('/')
 def main():
-    return "Hello world!"
+    return render_template('index.html')
 
 
 if __name__ == '__main__':
