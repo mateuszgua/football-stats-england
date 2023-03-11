@@ -12,5 +12,3 @@ class Config:
     PASSWORD = os.getenv('MYSQL_PASSWORD')
     HOST = os.getenv('MYSQL_HOST')
     DB_NAME = os.getenv('MYSQL_DB_NAME')
-
-    os.chdir("./data")
