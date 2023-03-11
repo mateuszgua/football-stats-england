@@ -3,16 +3,42 @@ from mysql.connector import Error
 
 import config
 
-configuration = config.Config()
 
-try:
-    conn = msql.connect(host=configuration.HOST, user=configuration.USERNAME,
-                        password=configuration.PASSWORD)
+class MyDatabase:
 
-    if conn.is_connected():
-        cursor = conn.cursor()
-        cursor.execute(f"CREATE DATABASE {configuration.DB_NAME}")
-        print("Database is created")
+    def __init__(self) -> None:
+        self.database = config.Config.DB_NAME
+        self.user = config.Config.USERNAME
+        self.password = config.Config.PASSWORD
+        self.host = config.Config.HOST
+        self.connection = None
 
-except Error as e:
-    print("Error while connecting to MySQL", e)
+    def get_connection(self):
+        if self.is_connection_valid():
+            return self.connection
+        self.close_connection()
+
+        try:
+            self.connection = msql.connect(host=self.host,
+                                           user=self.user,
+                                           password=self.password)
+            self.connection.autocommit = True
+
+        except Error as e:
+            self.connection = None
+            print("Error while connecting to MySQL", e)
+
+        else:
+            print("Connection created successfully.")
+
+        return self.connection
+
+    def close_connection(self):
+        if self.connection:
+            self.connection.close()
+
+    def is_connection_valid(self):
+        return self.connection and self.connection.is_closed == 0
+
+    def get_cursor(self):
+        return self.get_connection().cursor()
