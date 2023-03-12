@@ -28,5 +28,10 @@ def database():
     return render_template('database.html')
 
 
+@app.route('/flask')
+def flask():
+    return render_template('flask.html')
+
+
 if __name__ == '__main__':
     app.run()
