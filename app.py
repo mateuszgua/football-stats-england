@@ -23,5 +23,10 @@ def normalization():
     return render_template('normalization.html')
 
 
+@app.route('/database')
+def database():
+    return render_template('database.html')
+
+
 if __name__ == '__main__':
     app.run()
