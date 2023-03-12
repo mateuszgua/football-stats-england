@@ -33,5 +33,10 @@ def flask():
     return render_template('flask.html')
 
 
+@app.route('/visualization')
+def visualization():
+    return render_template('visualization.html')
+
+
 if __name__ == '__main__':
     app.run()
