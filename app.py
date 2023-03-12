@@ -38,5 +38,10 @@ def visualization():
     return render_template('visualization.html')
 
 
+@app.route('/schema')
+def schema():
+    return render_template('schema.html')
+
+
 if __name__ == '__main__':
     app.run()
