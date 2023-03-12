@@ -18,5 +18,10 @@ def source():
     return render_template('source.html')
 
 
+@app.route('/normalization')
+def normalization():
+    return render_template('normalization.html')
+
+
 if __name__ == '__main__':
     app.run()
