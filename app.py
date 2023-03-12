@@ -13,5 +13,10 @@ def main():
     return render_template('index.html')
 
 
+@app.route('/source')
+def source():
+    return render_template('source.html')
+
+
 if __name__ == '__main__':
     app.run()
