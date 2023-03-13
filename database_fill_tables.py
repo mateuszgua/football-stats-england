@@ -50,10 +50,10 @@ class DatabaseFillTables:
         referee_list = self.referee_data.to_records().tolist()
         cursor.executemany(sql, referee_list)
 
-    def fill_teams(self):
+    def fill_clubs(self):
         cursor = self.my_db.get_cursor()
         self.get_csv_files()
-        sql = f"""INSERT INTO {config.Config.DB_NAME}.teams VALUES (%s, %s)"""
+        sql = f"""INSERT INTO {config.Config.DB_NAME}.clubs VALUES (%s, %s)"""
         self.club_data = self.club_data.drop(columns=['Id'])
         club_list = self.club_data.to_records().tolist()
         cursor.executemany(sql, club_list)

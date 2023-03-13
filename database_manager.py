@@ -27,9 +27,9 @@ class DatabaseManager:
                 fill_table.fill_referees()
 
             cursor.execute(
-                f"""CREATE TABLE IF NOT EXISTS {config.Config.DB_NAME}.teams(id INT PRIMARY KEY, name VARCHAR(255))""")
-            if read_from_db.is_table_not_empty('teams') is False:
-                fill_table.fill_teams()
+                f"""CREATE TABLE IF NOT EXISTS {config.Config.DB_NAME}.clubs(id INT PRIMARY KEY, name VARCHAR(255))""")
+            if read_from_db.is_table_not_empty('clubs') is False:
+                fill_table.fill_clubs()
 
             cursor.execute(
                 f"""CREATE TABLE IF NOT EXISTS {config.Config.DB_NAME}.games(id INT PRIMARY KEY, date DATE, HomeTeam INT, AwayTeam INT, FullTimeHomeGoals INT, FullTimeAwayGoals INT,"""
