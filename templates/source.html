@@ -16,12 +16,12 @@
     <li class="list-group-item">
         <br>
         Sample file for download in csv format:
-        <a class="btn btn-warning" href="{{ url_for('.download_file') }}" role="button">Download</a>
+        <a class="btn btn-warning btn-sm" href="{{ url_for('.download_file') }}" role="button">Download csv file</a>
     </li>
     <li class="list-group-item">
         <br>
         All files are shown in the picture below.
-        <br><br>
+        <br>
         <img src="{{url_for('static', filename='all_files.png')}}" />
     </li>
 </ul>
