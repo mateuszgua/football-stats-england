@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import render_template
+from flask import send_file
 from flask import redirect
 
 from database_reader import DatabaseReader
@@ -16,6 +17,12 @@ def main():
 @app.route('/source')
 def source():
     return render_template('source.html')
+
+
+@app.route('/download')
+def download_file():
+    path = './samples/sample_season_2020_2021.csv'
+    return send_file(path, as_attachment=True)
 
 
 @app.route('/normalization')

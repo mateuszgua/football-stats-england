@@ -5,11 +5,24 @@
 <h2 class="title">{% block title %} Source files{% endblock %}</h2>
 <br>
 
-<p>Page description about project.</p>
-
+<p>Below are the most important points from this section.</p>
+<br>
 <ul class="list-group list-group-flush">
-    <li class="list-group-item">Short description + link to data</li>
-    <li class="list-group-item">Sample file for download</li>
-    <li class="list-group-item">Screenshot of files </li>
+    <li class="list-group-item">
+        <br>
+        Downloading historical files from Premier League.
+        The csv files was download from <a href="https://www.football-data.co.uk/englandm.php">page.</a>
+    </li>
+    <li class="list-group-item">
+        <br>
+        Sample file for download in csv format:
+        <a class="btn btn-warning" href="{{ url_for('.download_file') }}" role="button">Download</a>
+    </li>
+    <li class="list-group-item">
+        <br>
+        All files are shown in the picture below.
+        <br><br>
+        <img src="{{url_for('static', filename='all_files.png')}}" />
+    </li>
 </ul>
 {% endblock %}
