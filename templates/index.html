@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="title">{% block title %} Welcome in football Premier League statistic page{% endblock %}</h2>
+<br>
+<br>
+<p>The application shows how to deal with data from csv files.</p>
+<p>The main topic is how to load data from source to database with pandas. Also application consider used queries for
+    get data from Mysql database. The last point is shown by the visualization using matplotlib.</p>
+<br>
+<h3>Chapters</h3>
+<br>
+<ol class="list-group list-group-numbered">
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+            <div class="fw-bold">
+                <a href="{{ url_for('source') }}" class="text-decoration-none text-body">Source</a>
+            </div>
+            Downloading files from the website and uploading them to the application.
+        </div>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+            <div class="fw-bold">
+                <a href="{{ url_for('normalization') }}" class="text-decoration-none text-body">Python - pandas</a>
+            </div>
+            Creating tables and save it as csv files.
+        </div>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+            <div class="fw-bold">
+                <a href="{{ url_for('database') }}" class="text-decoration-none text-body">Database</a>
+            </div>
+            Creating database and tables in MySQL.
+        </div>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+            <div class="fw-bold">
+                <a href="{{ url_for('flask') }}" class="text-decoration-none text-body">Flask</a>
+            </div>
+            Creating a web application. Connecting to the database and sending queries.
+        </div>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+            <div class="fw-bold">
+                <a href="{{ url_for('visualization') }}" class="text-decoration-none text-body">Visualization</a>
+            </div>
+            Creating visualization with python and matplotlib.
+        </div>
+    </li>
+</ol>
+
+{% endblock %}

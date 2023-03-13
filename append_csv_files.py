@@ -9,7 +9,7 @@ class AppendCsvFiles:
         pass
 
     def create_full_data_table(self, path):
-        os.chdir("../source")
+        os.chdir("./source")
         csv_files = glob.glob('*.{}'.format('csv'))
         df_append = pd.DataFrame()
 

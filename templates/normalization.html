@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="title">{% block title %} Create files {% endblock %}</h2>
+<br>
+
+<p>All transformations in this chapter were done using python and the pandas library.</p>
+<p>Below are the most important points from this section.</p>
+<br>
+
+<ul class="list-group list-group-flush">
+    <li class="list-group-item">The first step was to create onefile with merged all csv files.
+        <br>
+        <img src="{{url_for('static', filename='one_big_table.png')}}" />
+    </li>
+    <li class="list-group-item">
+        <br>
+        Then csv files were created using pandas library.
+        <br>
+        <img src="{{url_for('static', filename='club_create.png')}}" />
+        <br><br>
+        The final csv result in sample file with club nasmes look like:
+        <br>
+        <img src="{{url_for('static', filename='club_table.png')}}" />
+    </li>
+    <li class="list-group-item">
+        <br>
+        All created csv files was save in data folder in app.
+        <br>
+        <img src="{{url_for('static', filename='all_created_files.png')}}" />
+    </li>
+</ul>
+{% endblock %}
