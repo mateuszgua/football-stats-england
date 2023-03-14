@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template
 from flask import send_file
 from flask import redirect
+import pandas as pd
 
 from my_database import MyDatabase
 
@@ -37,7 +38,21 @@ def database():
 
 @app.route('/flask')
 def flask():
-    return render_template('flask.html')
+    try:
+        my_db = MyDatabase()
+        cursor = my_db.get_cursor()
+        sql_file = open("./sql_files/task_1.sql")
+        sql_as_string = sql_file.read()
+        cursor.execute(sql_as_string)
+        result = cursor.fetchall()
+        df = pd.DataFrame(result)
+        table = df.columns = ['Club', 'Wins']
+        print(' ')
+        print(df)
+        print(' ')
+    finally:
+        sql_file.close()
+        return render_template('flask.html', sql_as_string=sql_as_string, table=table)
 
 
 @app.route('/visualization')
