@@ -3,7 +3,7 @@ from flask import render_template
 from flask import send_file
 from flask import redirect
 
-from database_reader import DatabaseReader
+from my_database import MyDatabase
 
 app = Flask(__name__, instance_relative_config=False)
 app.config.from_object('flask_settings.Config')
