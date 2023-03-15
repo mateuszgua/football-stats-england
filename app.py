@@ -58,12 +58,33 @@ def flask():
         result = cursor.fetchall()
         df = pd.DataFrame(result)
         df.columns = ['Club', 'TotalPoints']
-        print(' ')
-        print(df)
-        print(' ')
     finally:
         sql_file.close()
 
+    try:
+        cursor = my_db.get_cursor()
+        sql_file = open("./sql_files/task_3.sql")
+        sql_as_string = sql_file.read()
+        cursor.execute(sql_as_string)
+        result = cursor.fetchall()
+        df = pd.DataFrame(result)
+        df.columns = ['Club', 'TotalGames']
+    finally:
+        sql_file.close()
+
+    # try:
+    #     cursor = my_db.get_cursor()
+    #     sql_file = open("./sql_files/task_4.sql")
+    #     sql_as_string = sql_file.read()
+    #     cursor.execute(sql_as_string)
+    #     result = cursor.fetchall()
+    #     df = pd.DataFrame(result)
+    #     df.columns = ['Club', 'TotalGames']
+    #     print(' ')
+    #     print(df)
+    #     print(' ')
+    # finally:
+    #     sql_file.close()
     return render_template('flask.html')
 
 
