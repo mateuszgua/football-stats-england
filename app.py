@@ -38,21 +38,33 @@ def database():
 
 @app.route('/flask')
 def flask():
+    my_db = MyDatabase()
     try:
-        my_db = MyDatabase()
         cursor = my_db.get_cursor()
         sql_file = open("./sql_files/task_1.sql")
         sql_as_string = sql_file.read()
         cursor.execute(sql_as_string)
         result = cursor.fetchall()
         df = pd.DataFrame(result)
-        table = df.columns = ['Club', 'Wins']
+        df.columns = ['Club', 'Wins']
+    finally:
+        sql_file.close()
+
+    try:
+        cursor = my_db.get_cursor()
+        sql_file = open("./sql_files/task_2.sql")
+        sql_as_string = sql_file.read()
+        cursor.execute(sql_as_string)
+        result = cursor.fetchall()
+        df = pd.DataFrame(result)
+        df.columns = ['Club', 'TotalPoints']
         print(' ')
         print(df)
         print(' ')
     finally:
         sql_file.close()
-        return render_template('flask.html', sql_as_string=sql_as_string, table=table)
+
+    return render_template('flask.html')
 
 
 @app.route('/visualization')
