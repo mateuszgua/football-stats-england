@@ -82,13 +82,34 @@ class CreateCsvNormalizeTables:
         else:
             return 'File already exists!'
 
-    def create_games_table(self, path, path_club):
+    def create_games_table(self, path, path_referees, path_club):
         games_table = self.all_data[self.all_data.columns[1:23]]
-        games_drop_referee = games_table.drop(['Referee'], axis=1)
-        cleared_nan = games_drop_referee.fillna('9999')
+        referee_names = pd.read_csv(path_referees)
 
+        games_referees = []
+        games_edit = games_table.copy()
+        for i in games_edit['Referee']:
+            if str(i) != 'nan':
+                games_referees.append(i)
+            else:
+                games_referees.append("Not Found")
+
+        list_referees = []
+        for i in referee_names['Name']:
+            list_referees.append(i)
+
+        for i in range(len(games_referees)):
+            fullstring = games_referees[i]
+            for j in range(len(list_referees)):
+                substring = list_referees[j]
+                if fullstring != None and substring in fullstring:
+                    games_table.loc[games_table["Referee"]
+                                    == fullstring, "Referee"] = substring
+        games_table['Referee'] = games_table['Referee'].map(
+            referee_names.set_index('Name')['Id'])
+
+        cleared_nan = games_table.fillna('9999')
         club_names = pd.read_csv(path_club)
-
         cleared_nan['HomeTeam'] = cleared_nan['HomeTeam'].map(
             club_names.set_index('Name')['Id'])
         cleared_nan['AwayTeam'] = cleared_nan['AwayTeam'].map(
@@ -107,13 +128,3 @@ class CreateCsvNormalizeTables:
             return 'File save successfully!'
         else:
             return 'File already exists!'
-
-
-# response = CreateCsvNormalizeTables()
-# response.create_club_names_table()
-# response = CreateCsvNormalizeTables()
-# response.create_referee_names_table()
-# response = CreateCsvNormalizeTables()
-# response.create_bets_table()
-# response = CreateCsvNormalizeTables()
-# response.create_games_table()

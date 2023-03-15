@@ -24,9 +24,11 @@ class DatabaseFillTables:
             self.club_data = pd.read_csv(path_clubs)
 
             path_games = '../data/games_table.csv'
-            path_clubs = "../data/club_names.csv"
+            path_clubs = '../data/club_names.csv'
+            path_referees = '../data/referee_names.csv'
             if helper.is_file_exist(path_games) is False:
-                create_table.create_games_table(path_games, path_clubs)
+                create_table.create_games_table(
+                    path_games, path_referees, path_clubs)
             self.games_data = pd.read_csv(path_games)
 
             path_referees = '../data/referee_names.csv'
