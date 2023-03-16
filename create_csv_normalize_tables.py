@@ -1,5 +1,7 @@
 import glob
 import pandas as pd
+import datetime
+from datetime import datetime
 
 from helpers import Helpers
 from append_csv_files import AppendCsvFiles
@@ -108,17 +110,25 @@ class CreateCsvNormalizeTables:
         games_table['Referee'] = games_table['Referee'].map(
             referee_names.set_index('Name')['Id'])
 
-        cleared_nan = games_table.fillna('9999')
+        cleared_nan = games_table.fillna(
+            {'Date': '01/01/51', 'HomeTeam': 9999, 'AwayTeam': 9999})
         club_names = pd.read_csv(path_club)
         cleared_nan['HomeTeam'] = cleared_nan['HomeTeam'].map(
             club_names.set_index('Name')['Id'])
         cleared_nan['AwayTeam'] = cleared_nan['AwayTeam'].map(
             club_names.set_index('Name')['Id'])
         cleared_nan['Date'] = cleared_nan['Date'].replace(['Null'], '01/01/51')
+
+        games_short_date = games_table.copy()
+        games_short_date['Date'] = pd.to_datetime(
+            games_short_date['Date'], errors='coerce', format='%d/%m/%y').dt.strftime('%Y-%m-%d')
+
         cleared_nan['Date'] = pd.to_datetime(
-            cleared_nan['Date'], errors='coerce', format='%d/%m/%y').dt.strftime('%Y-%m-%d')
-        cleared_nan = cleared_nan.fillna(
-            {'Date': '1900-01-01', 'HomeTeam': 9999, 'AwayTeam': 9999})
+            cleared_nan['Date'], errors='coerce', format='%d/%m/%Y').dt.strftime('%Y-%m-%d')
+        cleared_nan['Date'] = cleared_nan['Date'].fillna(
+            games_short_date['Date'])
+        cleared_nan = cleared_nan.fillna({'Date': '1900-01-01'})
+        cleared_nan = cleared_nan.fillna('9999')
 
         file_exist = glob.glob(path)
 
