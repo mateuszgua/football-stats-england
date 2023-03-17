@@ -62,6 +62,10 @@ def flask():
         df_task7 = get_dataframe_from_sql(sql_file_task7)
         df_task7.columns = ['Season', 'AvgShots',
                             'AvgCorners', 'AvgFouls', 'AvgYellowCards', 'AvgRedCards']
+        sql_file_task8 = "./sql_files/task_8.sql"
+        df_task8 = get_dataframe_from_sql(sql_file_task8)
+        df_task8.columns = ['Season', 'Club',
+                            'Points', 'Goals', 'Fouls', 'Corners', 'YellowCards', 'RedCards']
         sql_file_task9 = "./sql_files/task_9.sql"
         df_task9 = get_dataframe_from_sql(sql_file_task9)
         df_task9.columns = ['Name', 'NumberMatches']
@@ -97,6 +101,9 @@ def flask():
                                column_names7=df_task7.columns.values,
                                row_data7=list(df_task7.values.tolist()),
                                zip7=zip,
+                               column_names8=df_task8.columns.values,
+                               row_data8=list(df_task8.values.tolist()),
+                               zip8=zip,
                                column_names9=df_task9.columns.values,
                                row_data9=list(df_task9.values.tolist()),
                                zip9=zip,
