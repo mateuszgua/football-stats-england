@@ -239,7 +239,7 @@
                 <h2 class="accordion-header" id="headingNine">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
-                        Task 9: Referee with the most number of matches.
+                        Task 9: Referee with the most number of matches - top 10.
                     </button>
                 </h2>
                 <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine"
@@ -266,16 +266,32 @@
                 </div>
             </div>
             <div class="accordion-item">
-                <h2 class="accordion-header" id="headingThree">
+                <h2 class="accordion-header" id="headingTen">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        Task 10: Referee with the most of yellow cards.
+                        data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                        Task 10: Referee with the most of yellow cards - top 15.
                     </button>
                 </h2>
-                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                <div id="collapseTen" class="accordion-collapse collapse" aria-labelledby="headingTen"
                     data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        ...
+                        <img src="{{url_for('static', filename='./tasks/task_10_sql.png')}}" class="d-block w-100"
+                            alt="SQL code" width="300" height="300">
+                        <br>
+                        <table class="table table-hover table-secondary">
+                            <tr>
+                                {% for col in column_names10 %}
+                                <th>{{col}}</th>
+                                {% endfor %}
+                            </tr>
+                            {% for row in row_data10 %}
+                            <tr>
+                                {% for col, row_ in zip10(column_names10, row) %}
+                                <td>{{row_}}</td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </table>
                     </div>
                 </div>
             </div>
