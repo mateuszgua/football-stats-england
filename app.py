@@ -51,6 +51,9 @@ def flask():
         sql_file_task4 = "./sql_files/task_4.sql"
         df_task4 = get_dataframe_from_sql(sql_file_task4)
         df_task4.columns = ['Season', 'AvgGoals']
+        sql_file_task5 = "./sql_files/task_5.sql"
+        df_task5 = get_dataframe_from_sql(sql_file_task5)
+        df_task5.columns = ['Season', 'NumberDraws']
     finally:
         return render_template('flask.html',
                                column_names1=df_task1.columns.values,
@@ -65,6 +68,9 @@ def flask():
                                column_names4=df_task4.columns.values,
                                row_data4=list(df_task4.values.tolist()),
                                zip4=zip,
+                               column_names5=df_task5.columns.values,
+                               row_data5=list(df_task5.values.tolist()),
+                               zip5=zip,
                                )
 
 
