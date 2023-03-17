@@ -63,7 +63,7 @@ class DatabaseFillTables:
     def fill_games(self):
         cursor = self.my_db.get_cursor()
         self.get_csv_files()
-        sql = f"""INSERT INTO {config.Config.DB_NAME}.games VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+        sql = f"""INSERT INTO {config.Config.DB_NAME}.games VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
         self.games_data = self.games_data.drop(columns=['Id'])
         games_list = self.games_data.to_records().tolist()
         cursor.executemany(sql, games_list)

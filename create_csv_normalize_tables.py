@@ -1,7 +1,6 @@
 import glob
 import pandas as pd
-import datetime
-from datetime import datetime
+import numpy as np
 
 from helpers import Helpers
 from append_csv_files import AppendCsvFiles
@@ -127,6 +126,30 @@ class CreateCsvNormalizeTables:
             cleared_nan['Date'], errors='coerce', format='%d/%m/%Y').dt.strftime('%Y-%m-%d')
         cleared_nan['Date'] = cleared_nan['Date'].fillna(
             games_short_date['Date'])
+
+        create_season = cleared_nan.copy()
+        create_season = create_season.fillna({'Date': '1900-01-01'})
+
+        create_season['Year'] = pd.to_datetime(
+            create_season['Date']).dt.strftime('%Y')
+        create_season['Month'] = pd.to_datetime(
+            create_season['Date']).dt.strftime('%m')
+        years = []
+        for index, row in create_season.iterrows():
+            if row['Month'] != 'nan' and int(row['Month']) > 7:
+                next_year = int(row['Year']) + 1
+                year = f"Ses{row['Year']}/{next_year}"
+                years.append(year)
+            elif row['Month'] != 'nan' and int(row['Month']) <= 7:
+                last_year = int(row['Year']) - 1
+                year = f"Ses{last_year}/{row['Year']}"
+                years.append(year)
+            else:
+                year = "Not Found"
+                years.append(year)
+
+        df_seasons = pd.DataFrame(years, columns=['Season'])
+        cleared_nan = cleared_nan.join(df_seasons['Season'])
         cleared_nan = cleared_nan.fillna({'Date': '1900-01-01'})
         cleared_nan = cleared_nan.fillna('9999')
 

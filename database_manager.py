@@ -35,7 +35,7 @@ class DatabaseManager:
                 f"""CREATE TABLE IF NOT EXISTS {config.Config.DB_NAME}.games(id INT PRIMARY KEY, date DATE, HomeTeam INT, AwayTeam INT, FullTimeHomeGoals INT, FullTimeAwayGoals INT,"""
                 + """FullTimeResult VARCHAR(10), HalfTimeHomeGoals INT, HalfTimeAwayGoals INT, HalfTimeResult VARCHAR(10), Referee INT, HomeShots INT, AwayShots INT,"""
                 + """HomeShotsTarget INT, AwayShotsTarget INT, HomeFouls INT, AwayFouls INT, HomeCorners INT, AwayCorners INT, HomeYellowCards INT,"""
-                + """AwayYellowCards INT, HomeRedCards INT, AwayRedCards INT)""")
+                + """AwayYellowCards INT, HomeRedCards INT, AwayRedCards INT, Season VARCHAR(15))""")
             if read_from_db.is_table_not_empty('games') is False:
                 fill_table.fill_games()
 
