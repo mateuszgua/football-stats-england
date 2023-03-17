@@ -21,10 +21,22 @@
                     data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                         <img src="{{url_for('static', filename='./tasks/task_1_sql.png')}}" class="d-block w-100"
-                            alt="SQL code" width="300" height="400">
+                            alt="SQL code" width="300" height="500">
                         <br>
-                        <img src="{{url_for('static', filename='./tasks/task_1_result.png')}}" class="d-block w-100"
-                            alt="Result from db" width="300" height="300">
+                        <table class="table table-hover table-secondary">
+                            <tr>
+                                {% for col in column_names1 %}
+                                <th>{{col}}</th>
+                                {% endfor %}
+                            </tr>
+                            {% for row in row_data1 %}
+                            <tr>
+                                {% for col, row_ in zip1(column_names1, row) %}
+                                <td>{{row_}}</td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </table>
                     </div>
                 </div>
             </div>
@@ -41,9 +53,7 @@
                         <img src="{{url_for('static', filename='./tasks/task_2_sql.png')}}" class="d-block w-100"
                             alt="SQL code" width="300" height="600">
                         <br>
-                        <img src="{{url_for('static', filename='./tasks/task_2_result.png')}}" class="d-block w-100"
-                            alt="Result from db" width="300" height="500">
-                        <table class="table table-hover table-info">
+                        <table class="table table-hover table-secondary">
                             <tr>
                                 {% for col in column_names2 %}
                                 <th>{{col}}</th>
@@ -73,8 +83,20 @@
                         <img src="{{url_for('static', filename='./tasks/task_3_sql.png')}}" class="d-block w-100"
                             alt="SQL code" width="300" height="400">
                         <br>
-                        <img src="{{url_for('static', filename='./tasks/task_3_result.png')}}" class="d-block w-100"
-                            alt="Result from db" width="300" height="400">
+                        <table class="table table-hover table-secondary">
+                            <tr>
+                                {% for col in column_names3 %}
+                                <th>{{col}}</th>
+                                {% endfor %}
+                            </tr>
+                            {% for row in row_data3 %}
+                            <tr>
+                                {% for col, row_ in zip3(column_names3, row) %}
+                                <td>{{row_}}</td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </table>
                     </div>
                 </div>
             </div>
@@ -82,7 +104,7 @@
                 <h2 class="accordion-header" id="headingFour">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                        Task 4: Average number of goals per season.
+                        Task 4: Average number of goals in match per season.
                     </button>
                 </h2>
                 <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
@@ -91,10 +113,7 @@
                         <img src="{{url_for('static', filename='./tasks/task_4_sql.png')}}" class="d-block w-100"
                             alt="SQL code" width="300" height="400">
                         <br>
-                        <img src="{{url_for('static', filename='./tasks/task_4_result.png')}}" class="d-block w-100"
-                            alt="Result from db" width="100" height="1200">
-
-                        <table class="table table-hover table-info">
+                        <table class="table table-hover table-secondary">
                             <tr>
                                 {% for col in column_names4 %}
                                 <th>{{col}}</th>

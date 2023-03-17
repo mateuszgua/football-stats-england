@@ -1,5 +1,5 @@
 WITH all_goals as (
-    SELECT Season, SUM(FullTimeHomeGoals) as HomeGoals, SUM(FullTimeAwayGoals) as AwayGoals 
+    SELECT Season, AVG(FullTimeHomeGoals) as HomeGoals, AVG(FullTimeAwayGoals) as AwayGoals 
     FROM games
     WHERE Season != 'Ses1899/1900'
     GROUP BY Season)

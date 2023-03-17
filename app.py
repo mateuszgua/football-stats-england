@@ -38,61 +38,48 @@ def database():
 
 @app.route('/flask')
 def flask():
-    my_db = MyDatabase()
     try:
-        cursor = my_db.get_cursor()
-        sql_file = open("./sql_files/task_1.sql")
-        sql_as_string = sql_file.read()
-        cursor.execute(sql_as_string)
-        result = cursor.fetchall()
-        df_task1 = pd.DataFrame(result)
+        sql_file_task1 = "./sql_files/task_1.sql"
+        df_task1 = get_dataframe_from_sql(sql_file_task1)
         df_task1.columns = ['Club', 'Wins']
-    finally:
-        sql_file.close()
-
-    try:
-        cursor = my_db.get_cursor()
-        sql_file = open("./sql_files/task_2.sql")
-        sql_as_string = sql_file.read()
-        cursor.execute(sql_as_string)
-        result = cursor.fetchall()
-        df_task2 = pd.DataFrame(result)
+        sql_file_task2 = "./sql_files/task_2.sql"
+        df_task2 = get_dataframe_from_sql(sql_file_task2)
         df_task2.columns = ['Club', 'TotalPoints']
-    finally:
-        sql_file.close()
-
-    try:
-        cursor = my_db.get_cursor()
-        sql_file = open("./sql_files/task_3.sql")
-        sql_as_string = sql_file.read()
-        cursor.execute(sql_as_string)
-        result = cursor.fetchall()
-        df_task3 = pd.DataFrame(result)
+        sql_file_task3 = "./sql_files/task_3.sql"
+        df_task3 = get_dataframe_from_sql(sql_file_task3)
         df_task3.columns = ['Club', 'TotalGames']
+        sql_file_task4 = "./sql_files/task_4.sql"
+        df_task4 = get_dataframe_from_sql(sql_file_task4)
+        df_task4.columns = ['Season', 'AvgGoals']
     finally:
-        sql_file.close()
+        return render_template('flask.html',
+                               column_names1=df_task1.columns.values,
+                               row_data1=list(df_task1.values.tolist()),
+                               zip1=zip,
+                               column_names2=df_task2.columns.values,
+                               row_data2=list(df_task2.values.tolist()),
+                               zip2=zip,
+                               column_names3=df_task3.columns.values,
+                               row_data3=list(df_task3.values.tolist()),
+                               zip3=zip,
+                               column_names4=df_task4.columns.values,
+                               row_data4=list(df_task4.values.tolist()),
+                               zip4=zip,
+                               )
 
+
+def get_dataframe_from_sql(sql_file_path):
     try:
+        my_db = MyDatabase()
         cursor = my_db.get_cursor()
-        sql_file = open("./sql_files/task_4.sql")
+        sql_file = open(sql_file_path)
         sql_as_string = sql_file.read()
         cursor.execute(sql_as_string)
         result = cursor.fetchall()
-        df_task4 = pd.DataFrame(result)
-        df_task4.columns = ['Season', 'AvgGoals']
-        print(' ')
-        print(df_task1)
-        print(' ')
+        result_df = pd.DataFrame(result)
     finally:
         sql_file.close()
-    return render_template('flask.html',
-                           column_names2=df_task2.columns.values,
-                           row_data2=list(df_task2.values.tolist()),
-                           zip2=zip,
-                           column_names4=df_task4.columns.values,
-                           row_data4=list(df_task4.values.tolist()),
-                           zip4=zip,
-                           )
+        return result_df
 
 
 @app.route('/visualization')
