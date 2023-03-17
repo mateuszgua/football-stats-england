@@ -72,7 +72,7 @@ class CreateCsvNormalizeTables:
 
     def create_bets_table(self, path):
         bet_table = self.all_data[self.all_data.columns[23:68]]
-        cleared_nan = bet_table.fillna('9999')
+        cleared_nan = bet_table.fillna('0')
 
         file_exist = glob.glob(path)
 
@@ -151,7 +151,7 @@ class CreateCsvNormalizeTables:
         df_seasons = pd.DataFrame(years, columns=['Season'])
         cleared_nan = cleared_nan.join(df_seasons['Season'])
         cleared_nan = cleared_nan.fillna({'Date': '1900-01-01'})
-        cleared_nan = cleared_nan.fillna('9999')
+        cleared_nan = cleared_nan.fillna('0')
 
         file_exist = glob.glob(path)
 
