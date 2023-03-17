@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h2 class="title">{% block title %} Create flask app and querys {% endblock %}</h2>
+<h2 class="title">{% block title %} Create flask app and queries {% endblock %}</h2>
 <br>
 
 <p>Page description about project.</p>
@@ -296,16 +296,32 @@
                 </div>
             </div>
             <div class="accordion-item">
-                <h2 class="accordion-header" id="headingThree">
+                <h2 class="accordion-header" id="headingEleven">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        data-bs-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
                         Task 11: Referee with the most of red cards.
                     </button>
                 </h2>
-                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                <div id="collapseEleven" class="accordion-collapse collapse" aria-labelledby="headingEleven"
                     data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        ...
+                        <img src="{{url_for('static', filename='./tasks/task_11_sql.png')}}" class="d-block w-100"
+                            alt="SQL code" width="300" height="300">
+                        <br>
+                        <table class="table table-hover table-secondary">
+                            <tr>
+                                {% for col in column_names11 %}
+                                <th>{{col}}</th>
+                                {% endfor %}
+                            </tr>
+                            {% for row in row_data11 %}
+                            <tr>
+                                {% for col, row_ in zip11(column_names11, row) %}
+                                <td>{{row_}}</td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </table>
                     </div>
                 </div>
             </div>
