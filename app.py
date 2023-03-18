@@ -135,16 +135,46 @@ def visualization():
             colors.append(i)
         color_list = [item for sublist in colors for item in sublist]
 
+        font1 = {'family': 'serif', 'color': 'black', 'size': 25}
+        font2 = {'family': 'serif', 'color': 'black', 'size': 15}
         plt.figure(figsize=(20, 10))
-        fig = plt.bar(df_task_vis_2["Season"],
-                      df_task_vis_2["Points"],
-                      label=df_task_vis_2["Club"], color=color_list, width=0.5)
-        plt.title("The winning team with number of points per season")
-        plt.xlabel('Season')
+        plt.bar(df_task_vis_2["Season"],
+                df_task_vis_2["Points"],
+                label=df_task_vis_2["Club"], color=color_list, width=0.5)
+        plt.title("The winning team with number of points per season",
+                  fontdict=font1)
+        plt.xlabel('Season', fontdict=font2)
         plt.xticks(rotation=70)
-        plt.ylabel('Points')
+        plt.ylabel('Points', fontdict=font2)
         plt.legend(bbox_to_anchor=(1.04, 1), loc="upper left")
         plt.savefig('./static/charts/chart_task_2.png')
+
+        sql_file_task_vis_3 = "./sql_files/task_vis_3.sql"
+        df_task_vis_3 = get_dataframe_from_sql(sql_file_task_vis_3)
+        df_task_vis_3.columns = ['Season', 'Goals']
+
+        plt.figure(figsize=(20, 10))
+        plt.plot(df_task_vis_3["Season"],
+                 df_task_vis_3["Goals"],
+                 c='#0dbcae', marker='o')
+        plt.title("Total golas per season", fontdict=font1)
+        plt.xlabel('Season', fontdict=font2)
+        plt.xticks(rotation=70)
+        plt.ylabel('Goals', fontdict=font2)
+        plt.grid()
+
+        for x, y in zip(df_task_vis_3["Season"], df_task_vis_3["Goals"]):
+            label = "{:.0f}".format(y)
+
+            plt.annotate(label,
+                         (x, y),
+                         textcoords="offset points",
+                         xytext=(0, 15),
+                         ha='center',
+                         arrowprops=dict(arrowstyle="->", color='black'))
+
+        plt.savefig('./static/charts/chart_task_3.png')
+
     finally:
         return render_template('visualization.html')
 
