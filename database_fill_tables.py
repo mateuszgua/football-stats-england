@@ -24,9 +24,11 @@ class DatabaseFillTables:
             self.club_data = pd.read_csv(path_clubs)
 
             path_games = '../data/games_table.csv'
-            path_clubs = "../data/club_names.csv"
+            path_clubs = '../data/club_names.csv'
+            path_referees = '../data/referee_names.csv'
             if helper.is_file_exist(path_games) is False:
-                create_table.create_games_table(path_games, path_clubs)
+                create_table.create_games_table(
+                    path_games, path_referees, path_clubs)
             self.games_data = pd.read_csv(path_games)
 
             path_referees = '../data/referee_names.csv'
@@ -61,7 +63,7 @@ class DatabaseFillTables:
     def fill_games(self):
         cursor = self.my_db.get_cursor()
         self.get_csv_files()
-        sql = f"""INSERT INTO {config.Config.DB_NAME}.games VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+        sql = f"""INSERT INTO {config.Config.DB_NAME}.games VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
         self.games_data = self.games_data.drop(columns=['Id'])
         games_list = self.games_data.to_records().tolist()
         cursor.executemany(sql, games_list)

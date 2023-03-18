@@ -21,7 +21,8 @@ class MyDatabase:
         try:
             self.connection = msql.connect(host=self.host,
                                            user=self.user,
-                                           password=self.password)
+                                           password=self.password,
+                                           database=self.database)
             self.connection.autocommit = True
 
         except Error as e:
