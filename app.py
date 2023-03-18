@@ -1,8 +1,9 @@
 from flask import Flask
 from flask import render_template
 from flask import send_file
-from flask import redirect
 import pandas as pd
+import matplotlib.pyplot as plt
+import randomcolor
 
 from my_database import MyDatabase
 
@@ -119,6 +120,35 @@ def flask():
                                )
 
 
+@app.route('/visualization')
+def visualization():
+    try:
+        sql_file_task_vis_2 = "./sql_files/task_vis_2.sql"
+        df_task_vis_2 = get_dataframe_from_sql(sql_file_task_vis_2)
+        df_task_vis_2.columns = ['Season', 'Club', 'Points']
+
+        number_of_colors = len(df_task_vis_2['Club']) - 1
+
+        colors = []
+        for i in range(number_of_colors):
+            i = randomcolor.RandomColor().generate()
+            colors.append(i)
+        color_list = [item for sublist in colors for item in sublist]
+
+        plt.figure(figsize=(20, 10))
+        fig = plt.bar(df_task_vis_2["Season"],
+                      df_task_vis_2["Points"],
+                      label=df_task_vis_2["Club"], color=color_list, width=0.5)
+        plt.title("The winning team with number of points per season")
+        plt.xlabel('Season')
+        plt.xticks(rotation=70)
+        plt.ylabel('Points')
+        plt.legend(bbox_to_anchor=(1.04, 1), loc="upper left")
+        plt.savefig('./static/charts/chart_task_2.png')
+    finally:
+        return render_template('visualization.html')
+
+
 def get_dataframe_from_sql(sql_file_path):
     try:
         my_db = MyDatabase()
@@ -133,12 +163,7 @@ def get_dataframe_from_sql(sql_file_path):
         return result_df
 
 
-@app.route('/visualization')
-def visualization():
-    return render_template('visualization.html')
-
-
-@app.route('/schema')
+@ app.route('/schema')
 def schema():
     return render_template('schema.html')
 
