@@ -19,6 +19,8 @@ class Config:
     HOST = 'localhost'
     PORT = 9000
     FLASK_ENV = 'development'
+    DEBUG = True
+    TESTING = True
 
 
 class DevelopmentConfig(Config):

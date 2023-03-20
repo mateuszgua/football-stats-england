@@ -17,7 +17,6 @@ matplotlib.use('Agg')
 
 config = Config()
 app = Flask(__name__, instance_relative_config=False)
-app.config.from_object('flask_settings.Config')
 
 
 @app.route('/')
