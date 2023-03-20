@@ -1,16 +1,16 @@
 import mysql.connector as msql
 from mysql.connector import Error
 
-import config
+from config import Config
 
 
 class MyDatabase:
 
     def __init__(self) -> None:
-        self.database = config.Config.DB_NAME
-        self.user = config.Config.USERNAME
-        self.password = config.Config.PASSWORD
-        self.host = config.Config.HOST
+        self.database = Config.DB_NAME
+        self.user = Config.USERNAME
+        self.password = Config.PASSWORD
+        self.host = Config.HOST
         self.connection = None
 
     def get_connection(self):

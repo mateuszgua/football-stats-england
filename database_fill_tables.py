@@ -1,8 +1,6 @@
-import os
 import pandas as pd
 
-import config
-
+from config import Config
 from my_database import MyDatabase
 from create_csv_normalize_tables import CreateCsvNormalizeTables
 from helpers import Helpers
@@ -47,7 +45,7 @@ class DatabaseFillTables:
     def fill_referees(self):
         cursor = self.my_db.get_cursor()
         self.get_csv_files()
-        sql = f"""INSERT INTO {config.Config.DB_NAME}.referee VALUES (%s, %s)"""
+        sql = f"""INSERT INTO {Config.DB_NAME}.referee VALUES (%s, %s)"""
         self.referee_data = self.referee_data.drop(columns=['Id'])
         referee_list = self.referee_data.to_records().tolist()
         cursor.executemany(sql, referee_list)
@@ -55,7 +53,7 @@ class DatabaseFillTables:
     def fill_clubs(self):
         cursor = self.my_db.get_cursor()
         self.get_csv_files()
-        sql = f"""INSERT INTO {config.Config.DB_NAME}.clubs VALUES (%s, %s)"""
+        sql = f"""INSERT INTO {Config.DB_NAME}.clubs VALUES (%s, %s)"""
         self.club_data = self.club_data.drop(columns=['Id'])
         club_list = self.club_data.to_records().tolist()
         cursor.executemany(sql, club_list)
@@ -63,7 +61,7 @@ class DatabaseFillTables:
     def fill_games(self):
         cursor = self.my_db.get_cursor()
         self.get_csv_files()
-        sql = f"""INSERT INTO {config.Config.DB_NAME}.games VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+        sql = f"""INSERT INTO {Config.DB_NAME}.games VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
         self.games_data = self.games_data.drop(columns=['Id'])
         games_list = self.games_data.to_records().tolist()
         cursor.executemany(sql, games_list)
@@ -71,7 +69,7 @@ class DatabaseFillTables:
     def fill_bets(self):
         cursor = self.my_db.get_cursor()
         self.get_csv_files()
-        sql = f"""INSERT INTO {config.Config.DB_NAME}.bets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+        sql = f"""INSERT INTO {Config.DB_NAME}.bets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
         self.bet_data = self.bet_data.drop(columns=['Id'])
         bet_list = self.bet_data.to_records().tolist()
         cursor.executemany(sql, bet_list)

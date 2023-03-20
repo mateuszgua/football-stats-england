@@ -1,6 +1,5 @@
 import glob
 import pandas as pd
-import numpy as np
 
 from helpers import Helpers
 from append_csv_files import AppendCsvFiles
