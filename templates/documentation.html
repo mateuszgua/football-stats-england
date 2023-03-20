@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="title">{% block title %} Documentation {% endblock %}</h2>
+<br>
+
+<p>This page contains a schematic diagram. In addition, there is a description of the folders in source code.</p>
+
+<ul class="list-group list-group-flush">
+    <li class="list-group-item">P
+        Diagram:
+        <img src="{{url_for('static', filename='./func-diagram.png')}}" class="d-block w-100" alt="Diagram_1">
+    </li>
+</ul>
+{% endblock %}

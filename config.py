@@ -12,3 +12,14 @@ class Config:
     PASSWORD = os.getenv('MYSQL_PASSWORD')
     HOST = os.getenv('MYSQL_HOST')
     DB_NAME = os.getenv('MYSQL_DB_NAME')
+
+    SECRET_KEY = os.getenv("SECRET_KEY", default=None)
+    STATIC_FOLDER = 'static'
+    TEMPLATES_FOLDER = 'templates'
+    HOST = 'localhost'
+    PORT = 9000
+    FLASK_ENV = 'development'
+
+
+class DevelopmentConfig(Config):
+    DEBUG = True
