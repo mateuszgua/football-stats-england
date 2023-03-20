@@ -1,0 +1,4 @@
+SELECT DISTINCT(Season)
+FROM games
+WHERE Season != 'Ses1899/1900'
+ORDER BY Season;
