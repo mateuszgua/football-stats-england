@@ -5,17 +5,47 @@
 <h2 class="title">{% block title %} Visualizations {% endblock %}</h2>
 <br>
 
-<p>Page description about project.</p>
+<p>The visualizations use sql queries that are called from the application.</p>
 
 <ul class="list-group list-group-flush">
     <li class="list-group-item">
-        ...
+        <img src="{{url_for('static', filename='./charts/chart_task_2.png')}}" class="d-block w-100" alt="Chart_2">
     </li>
+
     <li class="list-group-item">
-        <img src="{{url_for('static', filename='./charts/chart_task_2.png')}}" class="d-block w-100" alt="Chart">
+        <img src="{{url_for('static', filename='./charts/chart_task_3.png')}}" class="d-block w-100" alt="Chart_3">
     </li>
+
     <li class="list-group-item">
-        <img src="{{url_for('static', filename='./charts/chart_task_3.png')}}" class="d-block w-100" alt="Chart">
+        <br>
+        <form class="form-inline" method="POST" action="{{ url_for('chart') }}">
+            <div class="mb-3">
+                <label for="season-select" class="form-label">Choose a season:</label>
+                <div class="btn-group" aria-label="Default select example">
+                    <select class="form-select" name="season" id="season-select">
+                        <option value="">Please choose an option</option>
+                        {% for name, season in seasons.items() %}
+                        <option value="{{ name }}">{{ season }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="place-select" class="form-label">Choose a finall place:</label>
+                <div class="btn-group" aria-label="Default select example">
+                    <select class="form-select" name="place" id="place-select">
+                        <option value="">Please choose an option</option>
+                        {% for position in positions %}
+                        <option value="{{ position }}">{{ position }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Confirm</button>
+        </form>
+        <br>
+        <p>Reult:</p>
+        <img src="{{url_for('static', filename='./charts/chart_task_1.png')}}" class="d-block w-100" alt="Chart_1">
     </li>
 
 </ul>

@@ -1,11 +1,18 @@
+from my_database import MyDatabase
+import randomcolor
+from matplotlib import pyplot as plt
 from flask import Flask
 from flask import render_template
 from flask import send_file
+from flask import request
+from flask import redirect
+from flask import url_for
+from mysql.connector import Error
 import pandas as pd
-import matplotlib.pyplot as plt
-import randomcolor
+import matplotlib
 
-from my_database import MyDatabase
+matplotlib.use('Agg')
+
 
 app = Flask(__name__, instance_relative_config=False)
 app.config.from_object('flask_settings.Config')
@@ -123,6 +130,23 @@ def flask():
 @app.route('/visualization')
 def visualization():
     try:
+        font1 = {'family': 'serif', 'color': 'black', 'size': 25}
+        font2 = {'family': 'serif', 'color': 'black', 'size': 15}
+
+        list_numbers = list(range(1, 21))
+        sql_file_task_vis_1_3 = "./sql_files/task_vis_1_3.sql"
+        df_task_vis_1_3 = get_dataframe_from_sql(sql_file_task_vis_1_3)
+
+        list_seasons_short = []
+        for i in df_task_vis_1_3[0]:
+            list_seasons_short.append(i)
+        list_seasons = [s.replace('Ses', 'Season ')
+                        for s in list_seasons_short]
+        dict_seasons = {list_seasons_short[i]: list_seasons[i]
+                        for i in range(len(list_seasons_short))}
+        sql_file_task_vis_1 = "./sql_files/task_vis_1.sql"
+        create_sql_procedure(sql_file_task_vis_1)
+
         sql_file_task_vis_2 = "./sql_files/task_vis_2.sql"
         df_task_vis_2 = get_dataframe_from_sql(sql_file_task_vis_2)
         df_task_vis_2.columns = ['Season', 'Club', 'Points']
@@ -135,8 +159,6 @@ def visualization():
             colors.append(i)
         color_list = [item for sublist in colors for item in sublist]
 
-        font1 = {'family': 'serif', 'color': 'black', 'size': 25}
-        font2 = {'family': 'serif', 'color': 'black', 'size': 15}
         plt.figure(figsize=(20, 10))
         plt.bar(df_task_vis_2["Season"],
                 df_task_vis_2["Points"],
@@ -146,8 +168,10 @@ def visualization():
         plt.xlabel('Season', fontdict=font2)
         plt.xticks(rotation=70)
         plt.ylabel('Points', fontdict=font2)
-        plt.legend(bbox_to_anchor=(1.04, 1), loc="upper left")
+        plt.legend(bbox_to_anchor=(1, 1), loc="upper left",
+                   frameon=False, fontsize=12)
         plt.savefig('./static/charts/chart_task_2.png')
+        plt.close()
 
         sql_file_task_vis_3 = "./sql_files/task_vis_3.sql"
         df_task_vis_3 = get_dataframe_from_sql(sql_file_task_vis_3)
@@ -171,12 +195,67 @@ def visualization():
                          textcoords="offset points",
                          xytext=(0, 15),
                          ha='center',
-                         arrowprops=dict(arrowstyle="->", color='black'))
+                         arrowprops=dict(arrowstyle="->", color='black'),
+                         fontsize=12)
 
         plt.savefig('./static/charts/chart_task_3.png')
+        plt.close()
+    except Error as e:
+        print(e)
 
     finally:
-        return render_template('visualization.html')
+        return render_template('visualization.html', seasons=dict_seasons, positions=list_numbers)
+
+
+@app.route("/chart", methods=['GET', 'POST'])
+def chart():
+    try:
+        season = request.form.get('season')
+        place = request.form.get('place')
+
+        my_db = MyDatabase()
+        cursor = my_db.get_cursor()
+
+        args = (int(place), season, (0, 'CHAR'), (0, 'CHAR'), (0))
+        result_args = cursor.callproc('GetTeamResultFromSeason', args)
+        result = [result_args[2], result_args[3], result_args[4]]
+        result_df = pd.DataFrame(result)
+        result_df_transposed = result_df.transpose()
+        result_df_transposed.columns = ['Season', 'Club', 'Points']
+        label = result_df_transposed["Club"][0]
+
+        font1 = {'family': 'serif', 'color': 'black', 'size': 25}
+        font2 = {'family': 'serif', 'color': 'black', 'size': 15}
+        plt.figure(figsize=(20, 10))
+        plt.scatter(result_df_transposed["Season"],
+                    result_df_transposed["Points"],
+                    label=label,
+                    color='green')
+        plt.title("The team with number of points for selected eason",
+                  fontdict=font1)
+        plt.xlabel('Season', fontdict=font2)
+        plt.xticks(rotation=0, fontsize=15)
+        plt.ylabel('Points', fontdict=font2)
+        for x, y in zip(result_df_transposed["Season"], result_df_transposed["Points"]):
+            label = "{:.0f}".format(y)
+
+            plt.annotate(label,
+                         (x, y),
+                         textcoords="offset points",
+                         xytext=(0, 20),
+                         ha='center',
+                         arrowprops=dict(arrowstyle="->", color='black'),
+                         fontsize=15)
+
+        plt.legend(loc='lower center', frameon=False, fontsize=15)
+        plt.savefig('./static/charts/chart_task_1.png')
+        plt.close()
+
+    except Error as e:
+        print(e)
+
+    finally:
+        return redirect(url_for('visualization'))
 
 
 def get_dataframe_from_sql(sql_file_path):
@@ -191,6 +270,19 @@ def get_dataframe_from_sql(sql_file_path):
     finally:
         sql_file.close()
         return result_df
+
+
+def create_sql_procedure(sql_file_path):
+    try:
+        my_db = MyDatabase()
+        cursor = my_db.get_cursor()
+        sql_file = open(sql_file_path)
+        sql_as_string = sql_file.read()
+        cursor.execute(sql_as_string)
+    except Error as e:
+        print(e)
+    finally:
+        sql_file.close()
 
 
 @ app.route('/schema')
