@@ -14,7 +14,7 @@ class CreateCsvNormalizeTables:
     def get_full_data_file(self):
         helper = Helpers()
         append_files = AppendCsvFiles()
-        path_full_data = '../data/append_files.csv'
+        path_full_data = './data/append_files.csv'
         if helper.is_file_exist(path_full_data) is False:
             append_files.create_full_data_table(path_full_data)
         self.all_data = pd.read_csv(path_full_data)
