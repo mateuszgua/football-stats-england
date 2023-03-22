@@ -12,6 +12,9 @@ import matplotlib
 
 from config import Config
 from my_database import MyDatabase
+from database_manager import DatabaseManager
+from database_fill_tables import DatabaseFillTables
+from my_database import MyDatabase
 
 matplotlib.use('Agg')
 
@@ -21,6 +24,11 @@ app = Flask(__name__, instance_relative_config=False)
 
 @app.route('/')
 def main():
+    init_db = DatabaseManager()
+    init_files = DatabaseFillTables()
+    init_db.create_database()
+    init_db.create_tables()
+    init_files.get_csv_files()
     return render_template('index.html')
 
 
@@ -48,47 +56,48 @@ def database():
 @app.route('/flask')
 def flask():
     try:
-        sql_file_task1 = "../sql_files/task_1.sql"
+        sql_file_task1 = "./sql_files/task_1.sql"
         df_task1 = get_dataframe_from_sql(sql_file_task1)
         df_task1.columns = ['Club', 'Wins']
-        sql_file_task2 = "../sql_files/task_2.sql"
+        sql_file_task2 = "./sql_files/task_2.sql"
         df_task2 = get_dataframe_from_sql(sql_file_task2)
         df_task2.columns = ['Club', 'TotalPoints']
-        sql_file_task3 = "../sql_files/task_3.sql"
+        sql_file_task3 = "./sql_files/task_3.sql"
         df_task3 = get_dataframe_from_sql(sql_file_task3)
         df_task3.columns = ['Club', 'TotalGames']
-        sql_file_task4 = "../sql_files/task_4.sql"
+        sql_file_task4 = "./sql_files/task_4.sql"
         df_task4 = get_dataframe_from_sql(sql_file_task4)
         df_task4.columns = ['Season', 'AvgGoals']
-        sql_file_task5 = "../sql_files/task_5.sql"
+        sql_file_task5 = "./sql_files/task_5.sql"
         df_task5 = get_dataframe_from_sql(sql_file_task5)
         df_task5.columns = ['Season', 'NumberDraws']
-        sql_file_task6 = "../sql_files/task_6.sql"
+        sql_file_task6 = "./sql_files/task_6.sql"
         df_task6 = get_dataframe_from_sql(sql_file_task6)
         df_task6.columns = ['Season', 'SumFirstHalfGoals',
                             'SumSecoundHalfGoals', 'AvgFirstHalfGoals', 'AvgSecoundHalfGoals']
-        sql_file_task7 = "../sql_files/task_7.sql"
+        sql_file_task7 = "./sql_files/task_7.sql"
         df_task7 = get_dataframe_from_sql(sql_file_task7)
         df_task7.columns = ['Season', 'AvgShots',
                             'AvgCorners', 'AvgFouls', 'AvgYellowCards', 'AvgRedCards']
-        sql_file_task8 = "../sql_files/task_8.sql"
+        sql_file_task8 = "./sql_files/task_8.sql"
         df_task8 = get_dataframe_from_sql(sql_file_task8)
         df_task8.columns = ['Season', 'Club',
                             'Points', 'Goals', 'Fouls', 'Corners', 'YellowCards', 'RedCards']
-        sql_file_task9 = "../sql_files/task_9.sql"
+        sql_file_task9 = "./sql_files/task_9.sql"
         df_task9 = get_dataframe_from_sql(sql_file_task9)
         df_task9.columns = ['Name', 'NumberMatches']
-        sql_file_task10 = "../sql_files/task_10.sql"
+        sql_file_task10 = "./sql_files/task_10.sql"
         df_task10 = get_dataframe_from_sql(sql_file_task10)
         df_task10.columns = ['Name', 'YellowCards']
-        sql_file_task11 = "../sql_files/task_11.sql"
+        sql_file_task11 = "./sql_files/task_11.sql"
         df_task11 = get_dataframe_from_sql(sql_file_task11)
         df_task11.columns = ['Season', 'Name', 'RedCards']
-        sql_file_task12 = "../sql_files/task_12.sql"
+        sql_file_task12 = "./sql_files/task_12.sql"
         df_task12 = get_dataframe_from_sql(sql_file_task12)
         df_task12.columns = ['NumberMatches', 'IsCorrectType']
     except Error as e:
         print(e)
+        return f"Error: {e}"
     finally:
         return render_template('flask.html',
                                column_names1=df_task1.columns.values,
@@ -130,6 +139,34 @@ def flask():
                                )
 
 
+def get_dataframe_from_sql(sql_file_path):
+    try:
+        db = MyDatabase()
+        sql_file = open(sql_file_path)
+        sql_as_string = sql_file.read()
+        result = db.sql_get_all_1(sql_as_string)
+        result_df = pd.DataFrame(result)
+    except Error as e:
+        print(e)
+        return f"Error: {e}"
+    finally:
+        sql_file.close()
+        return result_df
+
+
+def create_sql_procedure(sql_file_path):
+    try:
+        db = MyDatabase()
+        sql_file = open(sql_file_path)
+        sql_as_string = sql_file.read()
+        db.sql_execute(sql_as_string)
+    except Error as e:
+        print(e)
+        return f"Error: {e}"
+    finally:
+        sql_file.close()
+
+
 @app.route('/visualization')
 def visualization():
     try:
@@ -137,7 +174,7 @@ def visualization():
         font2 = {'family': 'serif', 'color': 'black', 'size': 15}
 
         list_numbers = list(range(1, 21))
-        sql_file_task_vis_1_3 = "../sql_files/task_vis_1_3.sql"
+        sql_file_task_vis_1_3 = "./sql_files/task_vis_1_3.sql"
         df_task_vis_1_3 = get_dataframe_from_sql(sql_file_task_vis_1_3)
 
         list_seasons_short = []
@@ -147,10 +184,10 @@ def visualization():
                         for s in list_seasons_short]
         dict_seasons = {list_seasons_short[i]: list_seasons[i]
                         for i in range(len(list_seasons_short))}
-        sql_file_task_vis_1 = "../sql_files/task_vis_1.sql"
+        sql_file_task_vis_1 = "./sql_files/task_vis_1.sql"
         create_sql_procedure(sql_file_task_vis_1)
 
-        sql_file_task_vis_2 = "../sql_files/task_vis_2.sql"
+        sql_file_task_vis_2 = "./sql_files/task_vis_2.sql"
         df_task_vis_2 = get_dataframe_from_sql(sql_file_task_vis_2)
         df_task_vis_2.columns = ['Season', 'Club', 'Points']
 
@@ -173,10 +210,10 @@ def visualization():
         plt.ylabel('Points', fontdict=font2)
         plt.legend(bbox_to_anchor=(1, 1), loc="upper left",
                    frameon=False, fontsize=12)
-        plt.savefig('../static/charts/chart_task_2.png')
+        plt.savefig('./static/charts/chart_task_2.png')
         plt.close()
 
-        sql_file_task_vis_3 = "../sql_files/task_vis_3.sql"
+        sql_file_task_vis_3 = "./sql_files/task_vis_3.sql"
         df_task_vis_3 = get_dataframe_from_sql(sql_file_task_vis_3)
         df_task_vis_3.columns = ['Season', 'Goals']
 
@@ -201,10 +238,11 @@ def visualization():
                          arrowprops=dict(arrowstyle="->", color='black'),
                          fontsize=12)
 
-        plt.savefig('../static/charts/chart_task_3.png')
+        plt.savefig('./static/charts/chart_task_3.png')
         plt.close()
     except Error as e:
         print(e)
+        return f"Error: {e}"
     finally:
         return render_template('visualization.html', seasons=dict_seasons, positions=list_numbers)
 
@@ -215,11 +253,9 @@ def chart():
         season = request.form.get('season')
         place = request.form.get('place')
 
-        my_db = MyDatabase()
-        cursor = my_db.get_cursor()
-
+        db = MyDatabase()
         args = (int(place), season, (0, 'CHAR'), (0, 'CHAR'), (0))
-        result_args = cursor.callproc('GetTeamResultFromSeason', args)
+        result_args = db.sql_call_procedure_1('GetTeamResultFromSeason', args)
         result = [result_args[2], result_args[3], result_args[4]]
         result_df = pd.DataFrame(result)
         result_df_transposed = result_df.transpose()
@@ -250,41 +286,13 @@ def chart():
                          fontsize=15)
 
         plt.legend(loc='lower center', frameon=False, fontsize=15)
-        plt.savefig('../static/charts/chart_task_1.png')
+        plt.savefig('./static/charts/chart_task_1.png')
         plt.close()
     except Error as e:
         print(e)
+        return f"Error: {e}"
     finally:
         return redirect(url_for('visualization'))
-
-
-def get_dataframe_from_sql(sql_file_path):
-    try:
-        my_db = MyDatabase()
-        cursor = my_db.get_cursor()
-        sql_file = open(sql_file_path)
-        sql_as_string = sql_file.read()
-        cursor.execute(sql_as_string)
-        result = cursor.fetchall()
-        result_df = pd.DataFrame(result)
-    except Error as e:
-        print(e)
-    finally:
-        sql_file.close()
-        return result_df
-
-
-def create_sql_procedure(sql_file_path):
-    try:
-        my_db = MyDatabase()
-        cursor = my_db.get_cursor()
-        sql_file = open(sql_file_path)
-        sql_as_string = sql_file.read()
-        cursor.execute(sql_as_string)
-    except Error as e:
-        print(e)
-    finally:
-        sql_file.close()
 
 
 @ app.route('/documentation')
