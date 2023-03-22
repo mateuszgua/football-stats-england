@@ -41,7 +41,7 @@ $ # Move to directory
 $ cd folder/to/clone-into/
 $
 $ # Clone the sources
-$ git clone 
+$ git clone https://github.com/mateuszgua/football-stats-england.git
 $
 $ # Move into folder
 $ cd football-stats-england
@@ -52,8 +52,11 @@ $
 $ # Activate the virtual environment
 $ source my_env/bin/activate
 $
+$ # Install requirements.txt file
+$ pip install -r requirements.txt
+$
 $ # Start app
-$ flask --app run.py run
+$ flask --app app.py run
 $ # ...
 $ # * Running on http://127.0.0.1:5000 
 ```
@@ -64,7 +67,7 @@ $ # Move to directory
 $ cd folder/to/clone-into/
 $
 $ # Clone the sources
-$ git clone 
+$ git clone https://github.com/mateuszgua/football-stats-england.git
 $
 $ # Move into folder
 $ cd football-stats-england
