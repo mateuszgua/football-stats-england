@@ -8,13 +8,13 @@ load_dotenv(path.join(basedir, '.env'))
 
 
 class Config:
-    USERNAME = os.getenv('MYSQL_USERNAME')
-    PASSWORD = os.getenv('MYSQL_PASSWORD')
-    HOST = os.getenv('MYSQL_HOST')
-    PORT = os.getenv('MYSQL_PORT')
-    DB_NAME = os.getenv('MYSQL_DB_NAME')
+    USERNAME = os.getenv('MYSQL_USERNAME', 'root')
+    PASSWORD = os.getenv('MYSQL_PASSWORD', 'root')
+    HOST = os.getenv('MYSQL_HOST', 'mysql')
+    PORT = os.getenv('MYSQL_PORT', '3306')
+    DB_NAME = os.getenv('MYSQL_DB_NAME', 'football_eng')
 
-    SECRET_KEY = os.getenv("SECRET_KEY", default=None)
+    SECRET_KEY = os.getenv("SECRET_KEY", 'GDtfDCFYjDABCKSJDIF')
     STATIC_FOLDER = 'static'
     TEMPLATES_FOLDER = 'templates'
     FLASK_HOST = '0.0.0.0'
