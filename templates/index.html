@@ -2,12 +2,14 @@
 
 {% block content %}
 
-<h2 class="title">{% block title %} Welcome in football Premier League statistic page{% endblock %}</h2>
+<h2 class="title">{% block title %} Welcome on football Premier League statistic site{% endblock %}</h2>
 <br>
 <br>
 <p>The application shows how to deal with data from csv files.</p>
-<p>The main topic is how to load data from source to database with pandas. Also application consider used queries for
-    get data from Mysql database. The last point is shown by the visualization using matplotlib.</p>
+<p>Below was shown steps of the project:
+    - loading data from source to database with pandas,
+    - using sql queries for reading data from Mysql database,
+    - showing results by charts in matplotlib.</p>
 <br>
 <h3>Chapters</h3>
 <br>
@@ -27,7 +29,7 @@
             </div>
             Merging all files from sources into one csv file.
             Making normalization process with pandas.
-            Creating tables and save it as csv files.
+            Creating dimensions and fact tables.
         </div>
     </li>
     <li class="list-group-item d-flex justify-content-between align-items-start">
@@ -35,8 +37,8 @@
             <div class="fw-bold">
                 <a href="{{ url_for('database') }}" class="text-decoration-none text-body">Database</a>
             </div>
-            Creating database and tables in MySQL with Python commands.
-            Creating connections with database and check data into MySQL Workbench.
+            Creating database and tables in MySQL with Python scripts.
+            Creating connections with database and checking data in MySQL Workbench.
         </div>
     </li>
     <li class="list-group-item d-flex justify-content-between align-items-start">
@@ -45,7 +47,7 @@
                 <a href="{{ url_for('flask') }}" class="text-decoration-none text-body">Flask</a>
             </div>
             Creating a web application.
-            Sending queries from flask app to MySQL database and get data into dataframes.
+            Running queries from flask app to MySQL database and loading data to dataframes.
         </div>
     </li>
     <li class="list-group-item d-flex justify-content-between align-items-start">
@@ -53,9 +55,9 @@
             <div class="fw-bold">
                 <a href="{{ url_for('visualization') }}" class="text-decoration-none text-body">Visualization</a>
             </div>
-            Creating SQL queries and get data from MySQL databse.
-            Creating procedure in SQL for load chosen value from user with buttons.
-            Creating visualization with python and matplotlib.
+            Creating sql queries and riding data from MySQL databse.
+            Creating procedure in sql which allows users choose season and team.
+            Creating visualizations with python and matplotlib.
         </div>
     </li>
 </ol>

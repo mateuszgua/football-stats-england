@@ -269,7 +269,7 @@ def chart():
                     result_df_transposed["Points"],
                     label=label,
                     color='green')
-        plt.title("The team with number of points for selected eason",
+        plt.title("The team with number of points for selected season",
                   fontdict=font1)
         plt.xlabel('Season', fontdict=font2)
         plt.xticks(rotation=0, fontsize=15)

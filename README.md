@@ -66,10 +66,10 @@ $ # Move into folder
 $ cd football-stats-england
 $
 $ # Create virtual environment
-$ python3 -m venv my_env
+$ python3 -m venv venv
 $
 $ # Activate the virtual environment
-$ source my_env/bin/activate
+$ source venv/bin/activate
 $
 $ # Install requirements.txt file
 $ pip install -r requirements.txt
