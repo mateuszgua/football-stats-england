@@ -5,8 +5,6 @@
 <h2 class="title">{% block title %} Documentation {% endblock %}</h2>
 <br>
 
-<p>This page contains a schematic diagram. In addition, there is a description of the folders in source code.</p>
-
 <ul class="list-group list-group-flush">
     <li class="list-group-item">
         Diagram:
@@ -26,7 +24,7 @@
         </ul>
         <ul class="list-group list-group-horizontal">
             <li class="list-group-item list-group-item-dark" style="width: 300px">samples</li>
-            <li class="list-group-item list-group-item-dark" style="width: 800px">The .csv files for download into
+            <li class="list-group-item list-group-item-dark" style="width: 800px">The .csv files for download from
                 source page.</li>
         </ul>
         <ul class="list-group list-group-horizontal">
@@ -43,61 +41,63 @@
         <ul class="list-group list-group-horizontal">
             <li class="list-group-item list-group-item-dark" style="width: 300px">static</li>
             <li class="list-group-item list-group-item-dark" style="width: 800px">The images with charts, tasks and rest
-                of images ised in
-                app</li>
+                of images used in app</li>
         </ul>
         <ul class="list-group list-group-horizontal">
             <li class="list-group-item list-group-item-dark" style="width: 300px">templates</li>
-            <li class="list-group-item list-group-item-dark" style="width: 800px">The hmlt files with contents in web
+            <li class="list-group-item list-group-item-dark" style="width: 800px">The html files with contents in web
                 side of application.
             </li>
         </ul>
         <ul class="list-group list-group-horizontal">
             <li class="list-group-item list-group-item-dark" style="width: 300px">app.py</li>
-            <li class="list-group-item list-group-item-dark" style="width: 800px">File for init databasse and run flask
+            <li class="list-group-item list-group-item-dark" style="width: 800px">File to init databasse and run flask
                 app.</li>
         </ul>
         <ul class="list-group list-group-horizontal">
             <li class="list-group-item list-group-item-dark" style="width: 300px">append_csv_files.py</li>
-            <li class="list-group-item list-group-item-dark" style="width: 800px">Connect all files with one long csv
-                file.</li>
+            <li class="list-group-item list-group-item-dark" style="width: 800px">Code to connect all files with one
+                long csv file.</li>
         </ul>
         <ul class="list-group list-group-horizontal">
             <li class="list-group-item list-group-item-dark" style="width: 300px">config.py</li>
-            <li class="list-group-item list-group-item-dark" style="width: 800px">Create configuration, get values from
-                .env, at parameters
-                for app and flak.</li>
+            <li class="list-group-item list-group-item-dark" style="width: 800px">Code to create configuration, get
+                values from .env, load parameters for app and flak.</li>
         </ul>
         <ul class="list-group list-group-horizontal">
             <li class="list-group-item list-group-item-dark" style="width: 300px">create_csv_normalize_tables.py</li>
-            <li class="list-group-item list-group-item-dark" style="width: 800px">Create normalized files with pandas.
+            <li class="list-group-item list-group-item-dark" style="width: 800px">Code to create normalized files with
+                pandas.
             </li>
         </ul>
         <ul class="list-group list-group-horizontal">
             <li class="list-group-item list-group-item-dark" style="width: 300px">databae_manager.py</li>
-            <li class="list-group-item list-group-item-dark" style="width: 800px">Create database and table.</li>
+            <li class="list-group-item list-group-item-dark" style="width: 800px">Code to create database and table.
+            </li>
         </ul>
         <ul class="list-group list-group-horizontal">
             <li class="list-group-item list-group-item-dark" style="width: 300px">database_fill_tables.py</li>
-            <li class="list-group-item list-group-item-dark" style="width: 800px">Fill tables with data from merged csv
-                file.</li>
+            <li class="list-group-item list-group-item-dark" style="width: 800px">Code to load tables with data from
+                merged csv file.</li>
         </ul>
         <ul class="list-group list-group-horizontal">
             <li class="list-group-item list-group-item-dark" style="width: 300px">databae_reader.py</li>
-            <li class="list-group-item list-group-item-dark" style="width: 800px">Read information from database.</li>
-        </ul>
-        <ul class="list-group list-group-horizontal">
-            <li class="list-group-item list-group-item-dark" style="width: 300px">helpers.py</li>
-            <li class="list-group-item list-group-item-dark" style="width: 800px">Check if chooen file exist.</li>
-        </ul>
-        <ul class="list-group list-group-horizontal">
-            <li class="list-group-item list-group-item-dark" style="width: 300px">my_database.py</li>
-            <li class="list-group-item list-group-item-dark" style="width: 800px">Create connectiona and curor with
+            <li class="list-group-item list-group-item-dark" style="width: 800px">Code to read information from
                 database.</li>
         </ul>
         <ul class="list-group list-group-horizontal">
+            <li class="list-group-item list-group-item-dark" style="width: 300px">helpers.py</li>
+            <li class="list-group-item list-group-item-dark" style="width: 800px">Code to check if chosen file exist.
+            </li>
+        </ul>
+        <ul class="list-group list-group-horizontal">
+            <li class="list-group-item list-group-item-dark" style="width: 300px">my_database.py</li>
+            <li class="list-group-item list-group-item-dark" style="width: 800px">Code to create connection and cursor
+                with database.</li>
+        </ul>
+        <ul class="list-group list-group-horizontal">
             <li class="list-group-item list-group-item-dark" style="width: 300px">views.py</li>
-            <li class="list-group-item list-group-item-dark" style="width: 800px">Create views in flask.</li>
+            <li class="list-group-item list-group-item-dark" style="width: 800px">Code to create views in flask.</li>
         </ul>
     </li>
 </ul>
