@@ -11,32 +11,33 @@
 * [Usage](#usage)
 * [Project Status](#project-status)
 * [Room for Improvement](#room-for-improvement)
-
+* [Contact](#contact)
 
 ## General Information
-- This project was created because I wanted learn how to normalize data from source.
+- This project was created because I wanted to learn how to normalize data.
 - I wanted to create sample of ETL process with data visualization.
 
 
 ## Technologies Used
 - Python - version 3.10.6
 - Flask - version 2.2.2
-
+- Pandas - version 1.5.3
+- Matplotlib - version 3.7.1
 
 ## Features
 List the ready features here:
-- Create one csv file from source downloaded files, 
-- Make normalization in pandas and save few csv files after transformations,
-- Make connection with mysql database,
-- Create files in python for create database and tables,
-- Fill tables in created database with python files,
-- Create reader data from database,
-- Create SQL queries,
-- Create Flask app for show project workflow,
-- Read sql files and create tables in dataframe for show results on flask app,
-- Create sql procedure and sql queries for create visualizations,
-- Read sql files, create visualizations in matplotlib and show results on flask app,
-- Create dockerfile and docker compose and delpoy image on dockerhub
+- Marging downloaded files into one csv file,
+- Normalization in pandas and creating dimensions and facts tables,
+- Making connection with mysql database in python app,
+- Creating database and tables with python scripts,
+- Loading data to tables in database with python scripts,
+- Creating reader data,
+- Creating SQL queries,
+- Creating Flask app to show project steps and results,
+- Reading .sql files and creating dataframes with pandas,
+- Creating sql procedure and sql queries,
+- Creating visualizations in matplotlib and showing results on flask app,
+- Creating dockerfile and docker compose and next delpoying image on dockerhub.
 
 ## Screenshots
 ![Example screenshot](./static/screenschots/main_page.png)
@@ -47,11 +48,11 @@ List the ready features here:
 ![Example screenshot](./static/screenschots/vizualization.png)
 
 ## Setup
-For start application with docker you need [Docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/).
+For starting application with docker you need [Docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/).
 
 
 ## Usage
-The application can be build from sources or can be run in docker.
+The application can be built from sources or can be run in docker.
 
 ##### Build from sources
 ```bash
@@ -119,9 +120,12 @@ $ docker run --rm --name football-stats-app --network mynetwork -p 5000:5000 foo
 ```
 
 ## Project Status
-Project is: in_progress
+Project is: completed
 
 
 ## Room for Improvement
 Room for improvement:
-- deploy project in real server
+- deploy project on server
+
+## Contact
+Created by [@DevGua]() - feel free to contact me!
