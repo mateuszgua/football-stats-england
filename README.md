@@ -128,4 +128,4 @@ Room for improvement:
 - deploy project on server
 
 ## Contact
-Created by [@DevGua]() - feel free to contact me!
+Created by [@DevGua](https://devgua-portfolio.web.app/) - feel free to contact me!
